@@ -12,6 +12,11 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import json
+
+from preprocess_data import toUnicode
+from preprocess_data import scrub
+from preprocess_data import yelp
 from preprocess_data import doYelp
 
 
@@ -19,12 +24,8 @@ from preprocess_data import doYelp
 #   Load data per yelp example
 # ---------------------------------------------------------------------------------------------------
 
-# do yelp review
-doYelp('yelp_review.json', 'yelp_review_X', 'yelp_review_y')
 
-
-# ---------------------------------------------------------------------------------------------------
-#   scrubb using what we have so far
-# ---------------------------------------------------------------------------------------------------
-
+# @Use: change `inPath` to path where your [yelp_academic_dataset_review.json] data is
+inPath = ''
+doYelp(inPath, 'outX', 'outy')
 

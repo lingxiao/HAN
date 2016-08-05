@@ -42,13 +42,15 @@ def doYelp (inPath, outX, outy):
 #       so that `xs` has field `text` and `stars`, pull out and scrub the 
 #       `text` as X and `stars` as y, return a tuple.
 
-# yelp :: String -> (Unicode, Unicode)
+# yelp :: String -> (String, Unicode)
 def yelp (xs):
     xs = toUnicode (xs)
     xs = json.loads(xs)      
     X  = scrub    (xs    ['text' ] )
     y  = toUnicode(str(xs['stars']))
-    return (X,y)
+
+    # encode back to string
+    return (X.encode('utf-8'),y)
 
 
 # @Use: core process words logic:
@@ -61,13 +63,13 @@ def yelp (xs):
 def scrub (xs):
 
     xs  = toUnicode(xs)
-
     xs  = xs.strip().lower() 
     xs  = re.sub(" \d+", '<NUM> ', xs)   # todo: ask neville if this regex is kosher
     ys  = tok.tokenize(xs)                   
-    ys  = ' '.join(ys)              
+    ys  = ' '.join(ys)
+    ys  = toUnicode(ys)              
 
-    return toUnicode(ys)
+    return ys
 
 # ---------------------------------------------------------------------------------------------------
 #   Main IO loops to read, scrub, and write to disk
@@ -80,7 +82,7 @@ def scrub (xs):
 # goXy :: (string -> (Unicode, Unicode)) 
 #         -> String -> String -> String 
 #         -> ReaderT _ IO Bool
-def goXy (clean, inPath, outX, outy)
+def goXy (clean, inPath, outX, outy):
     if os.path.isfile(inPath):
         with open(inPath) as xss, open(outX, mode = 'wb') as Xs, open(outy, mode = 'wb') as ys:
             for xs in xss :
