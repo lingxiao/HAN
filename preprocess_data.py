@@ -102,6 +102,7 @@ def goXy (clean, inPath, outX, outy)
 
 # @Use: given `xs` of arbitrary type, convert it to unicode
 # TOOD: honor the forall quantifier so that it's not a wat??
+
 # toUnicode :: forall a. a -> Unicode
 def toUnicode (xs):
     if isinstance(xs, str):
