@@ -66,7 +66,7 @@ def scrub (xs):
     xs  = re.sub(" \d+", '<NUM> ', xs)   # todo: ask neville if this regex is kosher
     ys  = tok.tokenize(xs)                   
     ys  = ' '.join(ys)              
-    ys  = ys.encode('utf-8')
+    ys  = toUnicode(ys)
 
     return ys
 
