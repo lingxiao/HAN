@@ -1,1 +1,0 @@
-This directory contains the same logic as preprocess_data.py, but it's more general and has better type safety gaurantee
