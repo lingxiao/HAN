@@ -54,7 +54,7 @@ def yelp (xs):
 # @Use: core process words logic:
 #       1. remove white space
 #       2. all lower case
-#       3. make all numbers in <NUM>
+#       3. convert all numbers to <NUM>
 #       4. tokenize according to tworkenize
 
 # scrub :: String -> Unicode
