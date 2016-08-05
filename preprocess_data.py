@@ -50,7 +50,7 @@ def yelp (xs):
     y  = toUnicode(str(xs['stars']))
 
     # encode back to string
-    return (X.encode('utf-8'),y)
+    return (X.encode('utf-8'), y)
 
 
 # @Use: core process words logic:
