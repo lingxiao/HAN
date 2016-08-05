@@ -34,6 +34,14 @@ tok  = Tokenizer()
 def doYelp (inPath, outX, outy):
     goXy (yelp, inPath, outX, outy)
 
+# @Use: Given valid file path `inFile` and output file names
+#       `outX` for the set of regressors, clean and write
+#       imdb reviews and stars according to subroutine `scrub`.
+
+# doIMDB :: String -> String -> ReaderT _ IO Bool
+def doIMDB (inPath, outX):
+    goX(scrub, inPath, outX)
+
 # ---------------------------------------------------------------------------------------------------
 #   Same common clean routines as above but effect-free
 # ---------------------------------------------------------------------------------------------------
@@ -51,9 +59,13 @@ def yelp (xs):
         X  = scrub(xs['text' ])
         y  = str  (xs['stars'])
         # encode back to string
-        return (X.encode('utf-8'), y)
+        if not isinstance(X, str):
+            X = X.encode('utf-8')
     else:
-        return (str(''), str(''))
+        X = ''.encode('utf-8')
+        y = X
+
+    return (X, y)
 
 
 
@@ -63,17 +75,15 @@ def yelp (xs):
 #       3. convert all numbers to <NUM>
 #       4. tokenize according to tworkenize
 
-# scrub :: String -> Unicode
+# scrub :: String -> String
 def scrub (xs):
-
     xs  = toUnicode(xs)
     xs  = xs.strip().lower() 
     xs  = re.sub(" \d+", '<NUM> ', xs)   # todo: ask neville if this regex is kosher
     ys  = tok.tokenize(xs)                   
     ys  = ' '.join(ys)
-    ys  = toUnicode(ys)              
+    return toStr(ys)
 
-    return ys
 
 # ---------------------------------------------------------------------------------------------------
 #   Main IO loops to read, scrub, and write to disk
@@ -83,7 +93,7 @@ def scrub (xs):
 #       and `y` to be saved in file named `outy`
 #       return true if input directory specified in `inPath` is valid, false otherwise
 
-# goXy :: (string -> (Unicode, Unicode)) 
+# goXy :: (string -> (String, String)) 
 #         -> String -> String -> String 
 #         -> ReaderT _ IO Bool
 def goXy (clean, inPath, outX, outy):
@@ -99,6 +109,23 @@ def goXy (clean, inPath, outX, outy):
     else:
         return False
 
+
+# @Use: iterate over a file and extract and `clean` the `X` to be saved in file named `outX`
+#       return true if input directory specified in `inPath` is valid, false otherwise
+
+# goXy :: (string -> String)
+#         -> String -> String 
+#         -> ReaderT _ IO Bool
+def goX (clean, inPath, outX):
+    if os.path.isfile(inPath):
+        with open(inPath) as xss, open(outX, mode = 'wb') as Xs:
+            for xs in xss :
+                xs = clean(xs)
+                Xs.write(xs)
+                Xs.write('\n')
+        return True
+    else:
+        return False
 
 # ---------------------------------------------------------------------------------------------------
 #   Utils
@@ -118,6 +145,15 @@ def toUnicode (xs):
         return str(xs).decode('utf-8')    # wat??      
 
 
+# toStr :: forall a. a -> String
+def toStr (xs):
+    if isinstance (xs, str):
+        return xs
+    if isinstance(xs, unicode):
+        xs = xs.encode('utf-8')
+        return xs
+    else:
+        return ''
 
 
 
