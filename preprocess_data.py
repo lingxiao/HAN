@@ -68,7 +68,6 @@ def yelp (xs):
     return (X, y)
 
 
-
 # @Use: core process words logic:
 #       1. remove white space
 #       2. all lower case
