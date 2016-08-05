@@ -66,9 +66,8 @@ def scrub (xs):
     xs  = re.sub(" \d+", '<NUM> ', xs)   # todo: ask neville if this regex is kosher
     ys  = tok.tokenize(xs)                   
     ys  = ' '.join(ys)              
-    ys  = toUnicode(ys)
 
-    return ys
+    return toUnicode(ys)
 
 # ---------------------------------------------------------------------------------------------------
 #   Main IO loops to read, scrub, and write to disk
