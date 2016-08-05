@@ -113,43 +113,6 @@ def toUnicode (xs):
     else:
         return str(xs).decode('utf-8')    # wat??      
 
-# ---------------------------------------------------------------------------------------------------
-#   To be depricated
-#   These functions will be depricated by end of day 8/5/2016
-# ---------------------------------------------------------------------------------------------------
-
-# Given valid file path `inFile` and output file name 'outName'
-# read in file `xss` and `scrub` it, then write `yys` to disk
-
-# doIMDB :: String -> String -> ReaderT _ IO Bool
-def doIMDB (inPath, outX): 
-    goX (scrub, inPath, outX)
-
-
-# todo: get rid of this. do you need this ever?
-# Given valid file path `inFile` and output file name 'outName' 
-# and normalizing/tokenizing routine `clean`, 
-# read in file `xss` and `scrub` it, then write `yys` to local directory
-# return [True] if succssful, [False] otherwise
-
-# goX :: (string -> Unicode) -> String -> String -> ReaderT _ IO Bool
-def goX (clean, inPath, outName):
-
-    if os.path.isfile(inPath):
-
-        with open (inPath) as xss , open(outName, mode = 'wb') as yys :
-            for xs in xss : 
-                ys = clean(xs)
-                yys.write(ys)
-                yys.write('\n')
-        return True
-
-    else:
-        return False       
-
-
-
-
 
 
 
