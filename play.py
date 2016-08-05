@@ -14,9 +14,6 @@ from __future__ import unicode_literals
 
 import json
 
-from preprocess_data import toUnicode
-from preprocess_data import scrub
-from preprocess_data import yelp
 from preprocess_data import doYelp
 
 
