@@ -42,15 +42,19 @@ def doYelp (inPath, outX, outy):
 #       so that `xs` has field `text` and `stars`, pull out and scrub the 
 #       `text` as X and `stars` as y, return a tuple.
 
-# yelp :: String -> (String, Unicode)
+# yelp :: String -> (String, String)
 def yelp (xs):
     xs = toUnicode (xs)
     xs = json.loads(xs)      
-    X  = scrub    (xs    ['text' ] )
-    y  = toUnicode(str(xs['stars']))
 
-    # encode back to string
-    return (X.encode('utf-8'), y)
+    if xs.get('text') and xs.get('stars'):
+        X  = scrub    (xs    ['text' ] )
+        y  = str(xs['stars'])
+        # encode back to string
+        return (X.encode('utf-8'), y)
+    else:
+        return (str(''), str(''))
+
 
 
 # @Use: core process words logic:
