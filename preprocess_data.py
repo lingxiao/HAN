@@ -48,8 +48,8 @@ def yelp (xs):
     xs = json.loads(xs)      
 
     if xs.get('text') and xs.get('stars'):
-        X  = scrub    (xs    ['text' ] )
-        y  = str(xs['stars'])
+        X  = scrub(xs['text' ])
+        y  = str  (xs['stars'])
         # encode back to string
         return (X.encode('utf-8'), y)
     else:
