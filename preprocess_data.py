@@ -7,7 +7,7 @@
 # |             
 # ---------------------------------------------------------------------------------------------------
 # ---------------------------------------------------------------------------------------------------
-
+ 
 
 from __future__ import print_function
 from __future__ import unicode_literals
@@ -46,8 +46,9 @@ def doYelp (inPath, outX, outy):
 def yelp (xs):
     xs = toUnicode (xs)
     xs = json.loads(xs)      
-    X  = scrub     (xs['text'])
-    y  = str(xs['stars']).decode('utf-8')
+    X  = scrub     (xs   ['text' ] )
+    y  = toUnicode(str(xs['stars']))
+    str(xs['stars']).decode('utf-8')
     return (X,y)
 
 
@@ -98,7 +99,6 @@ def goXy (clean, inPath, outX, outy)
 # ---------------------------------------------------------------------------------------------------
 #   Utils
 # ---------------------------------------------------------------------------------------------------
-
 
 # @Use: given `xs` of arbitrary type, convert it to unicode
 # TOOD: honor the forall quantifier so that it's not a wat??
